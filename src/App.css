@@ -171,16 +171,16 @@ section {
 }
 
 /* Đảm bảo container chính có thể scroll */
-#root {
+/* #root {
   overflow-y: auto;
   height: auto;
   min-height: 100vh;
-}
+} */
 
 /* Đảm bảo fullpage sections không chặn scroll */
-.section {
+/* .section {
   overflow: visible !important;
-}
+} */
 
 html, body, #root, .fp-scrollable, .section, .fullpage-wrapper, .fp-overflow, .fp-tableCell {
   -ms-overflow-style: none !important;  

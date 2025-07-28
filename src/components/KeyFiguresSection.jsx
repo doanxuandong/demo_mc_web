@@ -24,11 +24,12 @@ const blocks = [
   }
 ];
 
-export default function KeyFiguresSection() {
+export default function KeyFiguresSection({ onFinish }) {
   const [activeBlock, setActiveBlock] = useState(0);
   const imgRef = useRef();
   const blockRefs = useRef([]);
   const sectionRef = useRef();
+  const hasCalledFinish = useRef(false);
 
   useEffect(() => {
     // Trigger chuyển block khi scroll
@@ -52,11 +53,19 @@ export default function KeyFiguresSection() {
     if (imgRef.current) {
       gsap.to(imgRef.current, {
         rotate: activeBlock * 90,
-        duration: 0.8,
+        duration: 0.1, 
         ease: "power2.inOut"
       });
     }
   }, [activeBlock]);
+
+  // Gọi onFinish khi block cuối cùng được active lần đầu
+  useEffect(() => {
+    if (onFinish && activeBlock === blocks.length - 1 && !hasCalledFinish.current) {
+      hasCalledFinish.current = true;
+      onFinish();
+    }
+  }, [activeBlock, onFinish]);
 
   return (
     <section ref={sectionRef} className="w-full min-h-screen flex items-center justify-center bg-blue-900" style={{fontFamily: 'Montserrat, sans-serif', position: 'relative'}}>
@@ -109,7 +118,7 @@ export default function KeyFiguresSection() {
                 to={block.count}
                 separator="" 
                 direction="up"
-                duration={1.2}
+                duration={0.02}
                 className="count-up-text text-white text-[9vw] font-extrabold leading-none text-center"
               />
               <BlurText
